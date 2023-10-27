@@ -199,6 +199,7 @@ static constexpr MultiLang::string type_field_not_found = "Type field not found"
 static constexpr MultiLang::string variable_must_a_blitz_array = "Variable must be a Blitz array";
 static constexpr MultiLang::string incorrect_number_of_subscripts = "Incorrect number of subscripts";
 static constexpr MultiLang::string blitz_array_subscript_out_of_range = "Blitz array subscript out of range";
+static constexpr MultiLang::string reserved_pseudo_namespace = "Reserved pseudo namespace.";
 
 static constexpr MultiLang::wstring runtime_message = L"Runtime Message";
 static constexpr MultiLang::string current_language = "Current Language: English";

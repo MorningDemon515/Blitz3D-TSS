@@ -101,6 +101,7 @@ void FuncDeclNode::proto(DeclSeq* d, Environ* e) {
 	std::unique_ptr<DeclSeq> decls(new DeclSeq());
 	params->proto(decls.get(), e);
 	sem_type = new FuncType(t, decls.release(), false, false);
+	if (ident.substr(0, 6) == "blitz_") ex(MultiLang::reserved_pseudo_namespace);
 	if(!d->insertDecl(ident, sem_type, DECL_FUNC)) {
 		delete sem_type; ex(MultiLang::duplicate_identifier);
 	}
@@ -115,6 +116,7 @@ void FuncDeclNode::semant(Environ* e) {
 	int k;
 	for(k = 0; k < sem_type->params->size(); ++k) {
 		Decl* d = sem_type->params->decls[k];
+		if (d->name.substr(0, 6) == "blitz_") ex(MultiLang::reserved_pseudo_namespace);
 		if(!decls->insertDecl(d->name, d->type, d->kind)) ex(MultiLang::duplicate_identifier);
 	}
 
