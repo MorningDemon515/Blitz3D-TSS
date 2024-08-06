@@ -52,9 +52,9 @@ void PixelFormat::setFormat(const DDPIXELFORMAT& pf) {
 	asm_coder.CodePoint(point_code, depth, amask, rmask, gmask, bmask);
 }
 
-static void adjustTexSize(int* width, int* height, IDirect3DDevice7* dir3dDev) {
-	D3DDEVICEDESC7 ddDesc = { 0 };
-	if(dir3dDev->GetCaps(&ddDesc) < 0) {
+static void adjustTexSize(int* width, int* height, IDirect3DDevice9* dir3dDev) {
+	D3DCAPS9 ddDesc;
+	if(dir3dDev->GetDeviceCaps(&ddDesc) < 0) {
 		*width = *height = 256;
 		return;
 	}
@@ -64,12 +64,12 @@ static void adjustTexSize(int* width, int* height, IDirect3DDevice7* dir3dDev) {
 	for(w = 1; w < *width; w <<= 1) {}
 	for(h = 1; h < *height; h <<= 1) {}
 	//make square
-	if(ddDesc.dpcTriCaps.dwTextureCaps & D3DPTEXTURECAPS_SQUAREONLY) {
+	if(ddDesc.TextureCaps & D3DPTEXTURECAPS_SQUAREONLY) {
 		if(w > h) h = w;
 		else w = h;
 	}
 	//check aspect ratio
-	if(max = ddDesc.dwMaxTextureAspectRatio) {
+	if(max = ddDesc.MaxTextureAspectRatio) {
 		int asp = w > h ? w / h : h / w;
 		if(asp > max) {
 			if(w > h) h = w / max;
@@ -77,10 +77,10 @@ static void adjustTexSize(int* width, int* height, IDirect3DDevice7* dir3dDev) {
 		}
 	}
 	//clamp size
-	if((min = ddDesc.dwMinTextureWidth) && w < min) w = min;
-	if((min = ddDesc.dwMinTextureHeight) && h < min) h = min;
-	if((max = ddDesc.dwMaxTextureWidth) && w > max) w = max;
-	if((max = ddDesc.dwMaxTextureHeight) && h > max) h = max;
+	if (w < min) w = min;
+	if (h < min) h = min;
+	if((max = ddDesc.MaxTextureWidth) && w > max) w = max;
+	if((max = ddDesc.MaxTextureHeight) && h > max) h = max;
 
 	*width = w; *height = h;
 }

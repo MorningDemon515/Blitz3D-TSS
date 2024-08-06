@@ -6,7 +6,7 @@
 
 #include <set>
 #include <string>
-#include <d3d.h>
+#include <d3dx9.h>
 
 #include "ddutil.h"
 
@@ -23,9 +23,10 @@ public:
 	IDirectDraw7* dirDraw;
 	IDirectDraw* ds_dirDraw;
 
-	IDirect3D7* dir3d;
-	IDirect3DDevice7* dir3dDev;
-	D3DDEVICEDESC7 dir3dDevDesc;
+	IDirect3D9* dir3d;
+	IDirect3DDevice9* dir3dDev;
+	//D3DDEVICEDESC7 dir3dDevDesc;
+	D3DCAPS9 dir3dCaps;
 	DDPIXELFORMAT primFmt, zbuffFmt;
 
 	DDPIXELFORMAT texRGBFmt[2], texAlphaFmt[2], texRGBAlphaFmt[2], texRGBMaskFmt[2];
@@ -59,6 +60,15 @@ private:
 
 	/***** GX INTERFACE *****/
 public:
+
+	struct D3DVERTEX {
+		float x, y, z;
+		float nx, ny, nz;
+		DWORD diffuse;
+		float tu1, tv1;
+		float tu2, tv2;
+	}D3DV;
+
 	enum {
 		GRAPHICS_WINDOWED = 1,	//windowed mode
 		GRAPHICS_SCALED = 2,		//scaled window
