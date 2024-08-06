@@ -1,3 +1,7 @@
+# About Direct3D9
+
+I have replaced the original Direct3D7 with Direct3D9, but the 3D function cannot be used yet. Currently, only some 2D functions can be used
+
 # Blitz3D TSS
 
 This is a **fork** of [Blitz3D TSS](https://github.com/Saalvage/Blitz3D), made by [ZiYueCommentary](https://github.com/ZiYueCommentary/Blitz3D).
