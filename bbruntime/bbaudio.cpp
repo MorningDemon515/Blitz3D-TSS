@@ -4,7 +4,7 @@
 
 gxAudio* gx_audio;
 
-static inline void debugSound(gxSound* s, std::string function) {
+static inline void debugSound(gxSound* s, const char* function) {
 	if (!gx_audio->verifySound(s)) ErrorLog(function, MultiLang::sound_not_exist);
 }
 
