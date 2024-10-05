@@ -1,7 +1,7 @@
 #include "std.h"
 #include "bbsys.h"
 #include "bbruntime.h"
-#include "../gxruntime/gxutf8.h"
+#include "bbutf8.h"
 #include "../MultiLang/MultiLang.h"
 #include <codecvt>
 
@@ -10,22 +10,19 @@ int ErrorMessagePool::size = 0;
 bool ErrorMessagePool::hasMacro = false;
 
 void bbEnd() {
-    RTEX(0);
+    //RTEX(0);
 }
 
 void bbStop() {
-    gx_runtime->debugStop();
-    if (!gx_runtime->idle()) RTEX(0);
+    
 }
 
 void bbDisableClose() {
-    HMENU hmenu = GetSystemMenu(gx_runtime->hwnd, false);
-    RemoveMenu(hmenu, SC_CLOSE, MF_BYCOMMAND);
+    
 }
 
 void bbAppTitle(BBStr* ti, BBStr* cp) {
-    gx_runtime->setTitle(*ti, *cp);
-    delete ti; delete cp;
+    
 }
 
 void bbRuntimeError(BBStr* str) {
@@ -33,7 +30,7 @@ void bbRuntimeError(BBStr* str) {
     if (t.size() > 255) t[255] = 0;
     static char err[256];
     strcpy(err, t.c_str());
-    RTEX(UTF8::convertToAnsi(err).c_str());
+    //RTEX(UTF8::convertToAnsi(err).c_str());
 }
 
 void bbMemoryAccessViolation() {
@@ -79,26 +76,27 @@ BBStr* bbGetLocaleInfo() {
 int bbExecFile(BBStr* f) {
     std::string t = *f;
     delete f;
-    int n = gx_runtime->execute(t);
-    if (!gx_runtime->idle()) RTEX(0);
-    return n;
+    //int n = gx_runtime->execute(t);
+    //if (!gx_runtime->idle()) RTEX(0);
+    return 0;
 }
 
 void bbDelay(int ms) {
-    if (!gx_runtime->delay(ms)) RTEX(0);
+    
 }
 
 int bbMilliSecs() {
-    return gx_runtime->getMilliSecs();
+    return 0;
 }
 
 BBStr* bbCommandLine() {
-    return new BBStr(gx_runtime->commandLine());
+    BBStr* t;
+    return t;
 }
 
 BBStr* bbSystemProperty(BBStr* p) {
-    std::string t = gx_runtime->systemProperty(*p);
-    delete p; return new BBStr(t);
+    BBStr* t;
+    return t;
 }
 
 BBStr* bbGetEnv(BBStr* env_var) {
@@ -115,21 +113,17 @@ void bbSetEnv(BBStr* env_var, BBStr* val) {
     delete val;
 }
 
-gxTimer* bbCreateTimer(int hertz) {
-    gxTimer* t = gx_runtime->createTimer(hertz);
-    return t;
+int bbCreateTimer(int hertz) {
+   
+    return 0;
 }
 
-int bbWaitTimer(gxTimer* t) {
-    int n = t->wait();
-    delete t;
-    if (!gx_runtime->idle()) RTEX(0);
-    return n;
+int bbWaitTimer(int t) {
+    return 0;
 }
 
-void bbFreeTimer(gxTimer* t) {
-    gx_runtime->freeTimer(t);
-    delete t;
+void bbFreeTimer(int t) {
+    
 }
 
 std::string utf16_to_utf8(std::u16string&& utf16_string) {
@@ -167,26 +161,23 @@ void bbSetClipboardContents(BBStr* contents) {
 }
 
 void bbMessageBox(BBStr* title, BBStr* text) {
-    MessageBoxW(gx_runtime->hwnd, UTF8::convertToUtf16(text->c_str()).c_str(), UTF8::convertToUtf16(title->c_str()).c_str(), MB_APPLMODAL | MB_ICONINFORMATION);
+    MessageBoxW(NULL, UTF8::convertToUtf16(text->c_str()).c_str(), UTF8::convertToUtf16(title->c_str()).c_str(), MB_APPLMODAL | MB_ICONINFORMATION);
     delete title; delete text;
 }
 
 void bbDebugLog(BBStr* t) {
-    gx_runtime->debugLog(t->c_str());
-    delete t;
+    
 }
 
 void _bbDebugStmt(int pos, const char* file) {
-    gx_runtime->debugStmt(pos, file);
-    if (!gx_runtime->idle()) RTEX(0);
 }
 
 void _bbDebugEnter(void* frame, void* env, const char* func) {
-    gx_runtime->debugEnter(frame, env, func);
+   
 }
 
 void _bbDebugLeave() {
-    gx_runtime->debugLeave();
+    
 }
 
 bool basic_create();
@@ -279,7 +270,7 @@ void bbruntime_link(void (*rtSym)(const char* sym, void* pc)) {
 //start up error
 static void sue(const char* t) {
     std::string p = std::format(MultiLang::startup_error, t);
-    gx_runtime->debugError(p.c_str());
+    //gx_runtime->debugError(p.c_str());
 }
 
 bool bbruntime_create() {
@@ -350,9 +341,9 @@ inline static unsigned long ExceptionFilter(PEXCEPTION_POINTERS ex, PEXCEPTION_P
 inline static void program(void (*pc)()) {
     PEXCEPTION_POINTERS ex = NULL;
     __try {
-        if (!gx_runtime->idle()) RTEX(0);
-        pc();
-        gx_runtime->debugInfo(MultiLang::program_ended);
+        //if (!gx_runtime->idle()) RTEX(0);
+        //pc();
+        //gx_runtime->debugInfo(MultiLang::program_ended);
     }
     __except (ExceptionFilter(GetExceptionInformation(), ex)) {
         switch (ex->ExceptionRecord->ExceptionCode) {
@@ -381,6 +372,7 @@ inline static void program(void (*pc)()) {
     }
 }
 
+/*
 const char* bbruntime_run(gxRuntime* rt, void (*pc)(), bool dbg) {
     debug = dbg;
     gx_runtime = rt;
@@ -402,8 +394,8 @@ const char* bbruntime_run(gxRuntime* rt, void (*pc)(), bool dbg) {
     bbruntime_destroy();
     return t;
 }
-
+*/
 void bbruntime_panic(const wchar_t* err) {
-    MessageBoxW(gx_runtime->hwnd, err, MultiLang::runtime_error, MB_APPLMODAL);
+    MessageBoxW(NULL, err, MultiLang::runtime_error, MB_APPLMODAL);
     ExitProcess(-1);
 }

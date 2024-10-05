@@ -19,6 +19,9 @@
     <ClCompile Include="unzip.cpp">
       <Filter>ZipUtils</Filter>
     </ClCompile>
+    <ClCompile Include="bbutf8.cpp" />
+    <ClCompile Include="gxdir.cpp" />
+    <ClCompile Include="gxfilesystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basic.h" />
@@ -41,6 +44,9 @@
       <Filter>ZipUtils</Filter>
     </ClInclude>
     <ClInclude Include="constants.h" />
+    <ClInclude Include="bbutf8.h" />
+    <ClInclude Include="gxdir.h" />
+    <ClInclude Include="gxfilesystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ZipUtils">

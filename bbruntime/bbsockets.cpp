@@ -3,7 +3,8 @@
 #include <wininet.h>
 #include <WinDNS.h>
 #include "../MultiLang/MultiLang.h"
-#include "../gxruntime/gxutf8.h"
+#include "bbutf8.h"
+#include "basic.h"
 
 #pragma comment (lib, "Urlmon.lib")
 #pragma comment (lib, "Dnsapi.lib")
@@ -91,13 +92,13 @@ int UDPStream::eof() {
 int UDPStream::recv() {
 	if (e) return 0;
 	int tout;
-	if (recv_timeout) tout = gx_runtime->getMilliSecs() + recv_timeout;
+	//if (recv_timeout) tout = gx_runtime->getMilliSecs() + recv_timeout;
 	for (;;) {
 		int dt = 0;
-		if (recv_timeout) {
-			dt = tout - gx_runtime->getMilliSecs();
-			if (dt < 0) dt = 0;
-		}
+		//if (recv_timeout) {
+			//dt = tout - gx_runtime->getMilliSecs();
+			//if (dt < 0) dt = 0;
+	//	}
 		fd_set fd = { 1,sock };
 		timeval tv = { dt / 1000,(dt % 1000) * 1000 };
 		int n = ::select(0, &fd, 0, 0, &tv);
@@ -197,13 +198,13 @@ int TCPStream::read(char* buff, int size) {
 	if (e) return 0;
 	char* b = buff, * l = buff + size;
 	int tout;
-	if (read_timeout) tout = gx_runtime->getMilliSecs() + read_timeout;
+	//if (read_timeout) tout = gx_runtime->getMilliSecs() + read_timeout;
 	while (b < l) {
 		int dt = 0;
-		if (read_timeout) {
-			dt = tout - gx_runtime->getMilliSecs();
-			if (dt < 0) dt = 0;
-		}
+		//if (read_timeout) {
+		//	dt = tout - gx_runtime->getMilliSecs();
+		//	if (dt < 0) dt = 0;
+		//}
 		fd_set fd = { 1,sock };
 		timeval tv = { dt / 1000,(dt % 1000) * 1000 };
 		int n = ::select(0, &fd, 0, 0, &tv);
@@ -278,19 +279,19 @@ void TCPServer::remove(TCPStream* s) {
 
 static inline void debugUDPStream(UDPStream* p, const char* function) {
 	if (!udp_set.count(p)) {
-		ErrorLog(function, MultiLang::udp_stream_not_exist);
+		//ErrorLog(function, MultiLang::udp_stream_not_exist);
 	}
 }
 
 static inline void debugTCPStream(TCPStream* p, const char* function) {
 	if (!tcp_set.count(p)) {
-		ErrorLog(function, MultiLang::tcp_stream_not_exist);
+		//ErrorLog(function, MultiLang::tcp_stream_not_exist);
 	}
 }
 
 static inline void debugTCPServer(TCPServer* p, const char* function) {
 	if (!server_set.count(p)) {
-		ErrorLog(function, MultiLang::tcp_server_not_exist);
+		//ErrorLog(function, MultiLang::tcp_server_not_exist);
 	}
 }
 
@@ -307,7 +308,7 @@ int bbCountHostIPs(BBStr* host) {
 
 int bbHostIP(int index) {
 	if (index<1 || index>host_ips.size()) {
-		ErrorLog("HostIP", MultiLang::host_out_of_range);
+		//ErrorLog("HostIP", MultiLang::host_out_of_range);
 	}
 	return host_ips[index - 1];
 }
@@ -443,7 +444,7 @@ void  bbCloseTCPServer(TCPServer* p) {
 
 TCPStream* bbAcceptTCPStream(TCPServer* server) {
 	debugTCPServer(server, "AcceptTCPStream");
-	if (!gx_runtime->idle()) RTEX(0);
+	//if (!gx_runtime->idle()) RTEX(0);
 	if (TCPStream* tcp = server->accept()) {
 		tcp_set.insert(tcp);
 		return tcp;

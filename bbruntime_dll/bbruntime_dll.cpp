@@ -1,5 +1,7 @@
 #pragma warning( disable:4786 )
 
+#include <format>
+
 #include "bbruntime_dll.h"
 #include "../debugger/debugger.h"
 
@@ -9,7 +11,7 @@
 
 #include "../bbruntime/bbruntime.h"
 
-#include "../gxruntime/gxutf8.h"
+#include "../bbruntime/bbutf8.h"
 
 #include "../MultiLang/MultiLang.h"
 #include "../bbruntime/bbsys.h"
@@ -24,7 +26,7 @@ public:
 	virtual void debugLog(const char* msg) {}
 	virtual void debugMsg(const char* e, bool serious) {
 		if (serious) {
-			MessageBoxW(gx_runtime->hwnd, UTF8::convertToUtf16(e).c_str(), MultiLang::runtime_error, MB_APPLMODAL);
+			MessageBoxW(NULL, UTF8::convertToUtf16(e).c_str(), MultiLang::runtime_error, MB_APPLMODAL);
 		}
 	}
 	virtual void debugSys(void* msg) {}
@@ -34,7 +36,6 @@ public:
 static HINSTANCE hinst;
 static std::map<const char*, void*> syms;
 std::map<const char*, void*>::iterator sym_it;
-static gxRuntime* gx_runtime;
 
 inline const char* getCharPtr(std::string str) {
 	char* cha = new char[str.size() + 1];
@@ -57,7 +58,7 @@ inline std::string replace_all(const std::string& string, const std::string& pat
 
 inline void throw_mav() {
 	if (ErrorMessagePool::memoryAccessViolation == 0) {
-		RTEX(MultiLang::memory_access_violation);
+		//RTEX(MultiLang::memory_access_violation);
 	}
 	else {
 		std::string s = "";
@@ -68,10 +69,10 @@ inline void throw_mav() {
 		}
 		if (ErrorMessagePool::hasMacro) {
 			s = replace_all(s, "_CaughtError_", std::format("{0}: {1}", errorfunc, errorlog));
-			s = replace_all(s, "_AvailPhys_", to_string(gx_runtime->getAvailPhys()));
-			s = replace_all(s, "_AvailVirtual_", to_string(gx_runtime->getAvailVirtual()));
+			//s = replace_all(s, "_AvailPhys_", to_string(gx_runtime->getAvailPhys()));
+			//s = replace_all(s, "_AvailVirtual_", to_string(gx_runtime->getAvailVirtual()));
 		}
-		RTEX(UTF8::convertToAnsi(s).c_str());
+		//RTEX(UTF8::convertToAnsi(s).c_str());
 	}
 }
 
@@ -168,14 +169,6 @@ void Runtime::execute(void (*pc)(), const char* args, Debugger* dbg) {
 	//something different than 100%.
 	SetProcessDPIAware();
 
-	if(gx_runtime = gxRuntime::openRuntime(hinst, params, dbg)) {
-		bbruntime_run(gx_runtime, pc, debug);
-
-		gxRuntime* t = gx_runtime;
-		gx_runtime = 0;
-		gxRuntime::closeRuntime(t);
-	}
-
 #ifndef _DEBUG
 	_control87(_CW_DEFAULT, 0xfffff);
 	_set_se_translator(old_trans);
@@ -183,15 +176,15 @@ void Runtime::execute(void (*pc)(), const char* args, Debugger* dbg) {
 }
 
 void Runtime::asyncStop() {
-	if(gx_runtime) gx_runtime->asyncStop();
+	//if(gx_runtime) gx_runtime->asyncStop();
 }
 
 void Runtime::asyncRun() {
-	if(gx_runtime) gx_runtime->asyncRun();
+	//if(gx_runtime) gx_runtime->asyncRun();
 }
 
 void Runtime::asyncEnd() {
-	if(gx_runtime) gx_runtime->asyncEnd();
+	//if(gx_runtime) gx_runtime->asyncEnd();
 }
 
 void Runtime::checkmem(std::streambuf* buf) {

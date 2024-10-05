@@ -2,11 +2,6 @@
 #define BBGRAPHICS_H
 
 #include "bbsys.h"
-#include "../gxruntime/gxgraphics.h"
-
-extern gxGraphics* gx_graphics;
-extern gxCanvas* gx_canvas;
-extern gxScene* gx_scene;
 
 class bbImage;
 
@@ -29,8 +24,8 @@ float    bbDPIScaleY();
 
 //mode functions
 void	 bbGraphics(int w, int h, int d, int mode);
-gxCanvas* bbFrontBuffer();
-gxCanvas* bbBackBuffer();
+int      bbFrontBuffer();
+int      bbBackBuffer();
 void	 bbEndGraphics();
 int		 bbInFocus();
 int		 bbGraphicsLost();
@@ -39,18 +34,18 @@ void	 bbVWait(int n);
 void	 bbFlip(int vwait);
 
 //graphics buffer functions
-void	 bbSetBuffer(gxCanvas* buff);
-gxCanvas* bbGraphicsBuffer();
-int		 bbLoadBuffer(gxCanvas* surf, BBStr* str);
-int		 bbSaveBuffer(gxCanvas* surf, BBStr* str);
+void	 bbSetBuffer(int buff);
+int      bbGraphicsBuffer();
+int		 bbLoadBuffer(int surf, BBStr* str);
+int		 bbSaveBuffer(int surf, BBStr* str);
 
 //fast read/write operations...
-void	 bbLockBuffer(gxCanvas* buff);
-void	 bbUnlockBuffer(gxCanvas* buff);
-int		 bbReadPixel(int x, int y, gxCanvas* buff);
-void	 bbWritePixel(int x, int y, int argb, gxCanvas* buff);
-int		 bbReadPixelFast(int x, int y, gxCanvas* buff);
-void	 bbWritePixelFast(int x, int y, int argb, gxCanvas* buff);
+void	 bbLockBuffer(int buff);
+void	 bbUnlockBuffer(int buff);
+int		 bbReadPixel(int x, int y, int buff);
+void	 bbWritePixel(int x, int y, int argb, int buff);
+int		 bbReadPixelFast(int x, int y, int buff);
+void	 bbWritePixelFast(int x, int y, int argb, int buff);
 
 
 //2d rendering functions
@@ -73,9 +68,9 @@ BBStr* bbConvertToANSI(BBStr* str);
 BBStr* bbConvertToUTF8(BBStr* str);
 
 //font functions
-gxFont* bbLoadFont(BBStr* name, int height);
-void	 bbFreeFont(gxFont* f);
-void	 bbSetFont(gxFont* f);
+int      bbLoadFont(BBStr* name, int height);
+void	 bbFreeFont(int f);
+void	 bbSetFont(int f);
 int		 bbFontWidth();
 int		 bbFontHeight();
 int		 bbStringWidth(BBStr* str);
@@ -89,7 +84,7 @@ bbImage* bbLoadAnimImage(BBStr* s, int w, int h, int first, int cnt);
 void	 bbFreeImage(bbImage* i);
 int		 bbSaveImage(bbImage* i, BBStr* filename, int frame);
 void	 bbGrabImage(bbImage* i, int x, int y, int n);
-gxCanvas* bbImageBuffer(bbImage* i, int n);
+int       bbImageBuffer(bbImage* i, int n);
 void	 bbDrawImage(bbImage* i, int x, int y, int frame);
 void	 bbDrawBlock(bbImage* i, int x, int y, int frame);
 void	 bbTileImage(bbImage* i, int x, int y, int frame);

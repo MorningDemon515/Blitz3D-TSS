@@ -1,57 +1,24 @@
 #include "std.h"
 #include "bbsys.h"
-#include "../gxruntime/gxutf8.h"
-
-gxInput* gx_input;
-gxDevice* gx_mouse;
-gxDevice* gx_keyboard;
-std::vector<gxDevice*> gx_joysticks;
+#include "bbutf8.h"
 
 static int mouse_x, mouse_y, mouse_z;
 static const float JLT = -1.0f / 3.0f;
 static const float JHT = 1.0f / 3.0f;
 
-bool input_create() {
-	if (gx_input = gx_runtime->openInput(0)) {
-		if (gx_keyboard = gx_input->getKeyboard()) {
-			if (gx_mouse = gx_input->getMouse()) {
-				gx_joysticks.clear();
-				for (int k = 0; k < gx_input->numJoysticks(); ++k) {
-					gx_joysticks.push_back(gx_input->getJoystick(k));
-				}
-				mouse_x = mouse_y = mouse_z = 0;
-				return true;
-			}
-		}
-		gx_runtime->closeInput(gx_input);
-		gx_input = 0;
-	}
-	return false;
-}
+static std::vector<int> chars;
 
-bool input_destroy() {
-	gx_joysticks.clear();
-	gx_runtime->closeInput(gx_input);
-	gx_input = 0;
-	return true;
-}
-
-int bbKeyDown(int n) {
-	return gx_keyboard->keyDown(n);
-}
-
-int bbKeyHit(int n) {
-	return gx_keyboard->keyHit(n);
-}
-
-int bbGetKey() {
-	return gx_input->toAscii(gx_keyboard->getKey());
+std::vector<int> bbgetchars()
+{
+	std::vector<int> chrs = chars;
+	chars.clear();
+	return chrs;
 }
 
 BBStr* bbTextInput(BBStr* s) {
 	BBStr t = *s;
 	char tBuf[9];
-	std::vector<int> chars = gx_input->getChars();
+	std::vector<int> chars = bbgetchars();
 	for (int i = 0; i < chars.size(); i++) {
 		if (chars[i] == 8) { //backspace
 			if (t.size() > 0) UTF8::popBack(t);
@@ -69,55 +36,57 @@ BBStr* bbTextInput(BBStr* s) {
 	return s;
 }
 
+
+int bbKeyDown(int n) {
+	return 0;
+}
+
+int bbKeyHit(int n) {
+	return 0;
+}
+
+int bbGetKey() {
+	return 0;
+}
+
 int bbWaitKey() {
-	for (;;) {
-		if (!gx_runtime->idle()) RTEX(0);
-		if (int key = gx_keyboard->getKey()) {
-			if (key = gx_input->toAscii(key)) return key;
-		}
-		gx_runtime->delay(20);
-	}
+	return 0;
 }
 
 void bbFlushKeys() {
-	gx_input->getChars();
-	gx_keyboard->flush();
+	
 }
 
 int bbMouseDown(int n) {
-	return gx_mouse->keyDown(n);
+	return 0;
 }
 
 int bbMouseHit(int n) {
-	return gx_mouse->keyHit(n);
+	return 0;
 }
 
 int bbGetMouse() {
-	return gx_mouse->getKey();
+	return 0;
 }
 
 int bbWaitMouse() {
-	for (;;) {
-		if (!gx_runtime->idle()) RTEX(0);
-		if (int key = gx_mouse->getKey()) return key;
-		gx_runtime->delay(20);
-	}
+	return 0;
 }
 
 int bbMouseWait() {
-	return bbWaitMouse();
+	return 0;
 }
 
 int bbMouseX() {
-	return gx_mouse->getAxisState(0);
+	return 0;
 }
 
 int bbMouseY() {
-	return gx_mouse->getAxisState(1);
+	return 0;
 }
 
 int bbMouseZ() {
-	return gx_mouse->getAxisState(2) / 120;
+	return 0;
 }
 
 int bbMouseXSpeed() {
@@ -139,126 +108,109 @@ int bbMouseZSpeed() {
 }
 
 void bbFlushMouse() {
-	gx_mouse->flush();
+	
 }
 
 void bbMoveMouse(int x, int y) {
-	gx_input->moveMouse(mouse_x = x, mouse_y = y);
+	
 }
 
 int bbJoyType(int port) {
-	return gx_input->getJoystickType(port);
+	return 0;
 }
 
 int bbJoyDown(int n, int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->keyDown(n);
+	return 0;
 }
 
 int bbJoyHit(int n, int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->keyHit(n);
+	return 0;
 }
 
 int bbGetJoy(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->getKey();
+	return 0;
 }
 
 int bbWaitJoy(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	for (;;) {
-		if (!gx_runtime->idle()) RTEX(0);
-		if (int key = gx_joysticks[port]->getKey()) return key;
-		gx_runtime->delay(20);
-	}
+	return 0;
 }
 
 float bbJoyX(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->getAxisState(0);
+	return 0;
 }
 
 float bbJoyY(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->getAxisState(1);
+	return 0;
 }
 
 float bbJoyZ(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->getAxisState(2);
+	return 0;
 }
 
 float bbJoyU(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->getAxisState(3);
+	return 0;
 }
 
 float bbJoyV(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->getAxisState(4);
+	return 0;
 }
 
 float bbJoyPitch(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->getAxisState(5) * 180;
+	return 0;
 }
 
 float bbJoyYaw(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->getAxisState(6) * 180;
+	return 0;
 }
 
 float bbJoyRoll(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->getAxisState(7) * 180;
+	return 0;
 }
 
 int  bbJoyHat(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	return gx_joysticks[port]->getAxisState(8);
+	return 0;
 }
 
 int	bbJoyXDir(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	float t = gx_joysticks[port]->getAxisState(0);
-	return t < JLT ? -1 : (t > JHT ? 1 : 0);
+	return 0;
 }
 
 int bbJoyYDir(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	float t = gx_joysticks[port]->getAxisState(1);
-	return t < JLT ? -1 : (t > JHT ? 1 : 0);
+	return 0;
 }
 
 int	bbJoyZDir(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	float t = gx_joysticks[port]->getAxisState(2);
-	return t < JLT ? -1 : (t > JHT ? 1 : 0);
+	return 0;
 }
 
 int	bbJoyUDir(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	float t = gx_joysticks[port]->getAxisState(3);
-	return t < JLT ? -1 : (t > JHT ? 1 : 0);
+	return 0;
 }
 
 int	bbJoyVDir(int port) {
-	if (port < 0 || port >= gx_joysticks.size()) return 0;
-	float t = gx_joysticks[port]->getAxisState(4);
-	return t < JLT ? -1 : (t > JHT ? 1 : 0);
+	return 0;
 }
 
 void bbFlushJoy() {
-	for (int k = 0; k < gx_joysticks.size(); ++k) gx_joysticks[k]->flush();
+	
 }
 
 void  bbEnableDirectInput(int enable) {
-	gx_runtime->enableDirectInput(!!enable);
+	
 }
 
 int  bbDirectInputEnabled() {
-	return gx_runtime->directInputEnabled();
+	return 0;
+}
+
+bool input_create()
+{
+	return true;
+}
+
+bool input_destroy()
+{
+	return true;
 }
 
 void input_link(void (*rtSym)(const char* sym, void* pc)) {

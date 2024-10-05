@@ -36,14 +36,14 @@ static std::set<bbBank*> bank_set;
 
 static inline void debugBank(bbBank* b, const char* function) {
 	if (!bank_set.count(b)) {
-		ErrorLog(function, MultiLang::bank_not_exist);
+		//ErrorLog(function, MultiLang::bank_not_exist);
 	}
 }
 
 static inline void debugBank(bbBank* b, const char* function, int offset) {
 	debugBank(b, function);
 	if (offset >= b->size) { 
-		ErrorLog(function, MultiLang::offset_out_of_range);
+		//ErrorLog(function, MultiLang::offset_out_of_range);
 	}
 }
 
@@ -132,9 +132,9 @@ int   bbWriteBytes(bbBank* b, bbStream* s, int offset, int count) {
 int  bbCallDLL(BBStr* dll, BBStr* fun, bbBank* in, bbBank* out) {
 	if(in) debugBank(in, "CallDLL");
 	if(out) debugBank(out, "CallDLL");
-	int t = gx_runtime->callDll(*dll, *fun,
-		in ? in->data : 0, in ? in->size : 0,
-		out ? out->data : 0, out ? out->size : 0);
+	int t;//= gx_runtime->callDll(*dll, *fun,
+		//in ? in->data : 0, in ? in->size : 0,
+		//out ? out->data : 0, out ? out->size : 0);
 	delete dll; delete fun;
 	return t;
 }

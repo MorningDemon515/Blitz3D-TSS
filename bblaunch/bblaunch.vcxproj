@@ -19,13 +19,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -174,10 +174,6 @@
       <Project>{41785d5a-2fd3-43a2-9469-f5d9cf927e1d}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\blitz3d\blitz3d.vcxproj">
-      <Project>{60bb991f-8721-4a17-9f70-79d0ee5507fa}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\blitzide\blitzide.vcxproj">
       <Project>{2216011c-f754-4ea0-a1c6-e95ac41fb9b8}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -192,10 +188,6 @@
     </ProjectReference>
     <ProjectReference Include="..\debugger\debugger.vcxproj">
       <Project>{57c1d7a8-8b56-474a-94d9-06684015bb6b}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\gxruntime\gxruntime.vcxproj">
-      <Project>{a124d746-4a3b-401d-ae99-6a838595bc8c}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\linker\linker.vcxproj">

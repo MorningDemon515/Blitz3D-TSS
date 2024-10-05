@@ -1,12 +1,13 @@
 #include "std.h"
 #include "bbstream.h"
 #include "../MultiLang/MultiLang.h"
+#include "basic.h"
 
 static std::set<bbStream*> stream_set;
 
 void debugStream(bbStream* s, const char* function) {
 	if (stream_set.count(s)) return;
-	ErrorLog(function, MultiLang::stream_not_exist);
+	//ErrorLog(function, MultiLang::stream_not_exist);
 }
 
 bbStream::bbStream() {
@@ -35,7 +36,7 @@ int bbReadByte(bbStream* s) {
 		return n;
 	}
 	catch (std::exception& ex) {
-		ErrorLog("ReadByte", MultiLang::readbyte_invalid_byte);
+		//ErrorLog("ReadByte", MultiLang::readbyte_invalid_byte);
 	}
 }
 
@@ -47,7 +48,7 @@ int bbReadShort(bbStream* s) {
 		return n;
 	}
 	catch (std::exception& ex) {
-		ErrorLog("ReadShort", MultiLang::readshort_invalid_short);
+		//ErrorLog("ReadShort", MultiLang::readshort_invalid_short);
 	}
 }
 
@@ -59,7 +60,7 @@ int bbReadInt(bbStream* s) {
 		return n;
 	}
 	catch (std::exception& ex) {
-		ErrorLog("ReadInt", MultiLang::readint_invalid_int);
+		//ErrorLog("ReadInt", MultiLang::readint_invalid_int);
 	}
 }
 
@@ -71,7 +72,7 @@ float bbReadFloat(bbStream* s) {
 		return n;
 	}
 	catch (std::exception& ex) {
-		ErrorLog("ReadFloat", MultiLang::readfloat_invalid_float);
+		//ErrorLog("ReadFloat", MultiLang::readfloat_invalid_float);
 	}
 }
 
@@ -90,7 +91,7 @@ BBStr* bbReadString(bbStream* s) {
 		return str;
 	}
 	catch (std::exception& ex) {
-		ErrorLog("ReadString", MultiLang::readstring_invalid_string);
+		//ErrorLog("ReadString", MultiLang::readstring_invalid_string);
 	}
 }
 
@@ -144,7 +145,7 @@ void bbWriteLine(bbStream* s, BBStr* t) {
 void bbCopyStream(bbStream* s, bbStream* d, int buff_size) {
 	debugStream(s, "CopyStream");
 	debugStream(d, "CopyStream");
-	if (buff_size < 1 || buff_size>1024 * 1024) ErrorLog("CopyStream", MultiLang::illegal_buffer_size);
+	//if (buff_size < 1 || buff_size>1024 * 1024) ErrorLog("CopyStream", MultiLang::illegal_buffer_size);
 	char* buff = new char[buff_size];
 	while (s->eof() == 0 && d->eof() == 0) {
 		int n = s->read(buff, buff_size);

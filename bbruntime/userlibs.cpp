@@ -18,11 +18,11 @@ static std::string libFile;
 static std::string funcName;
 
 static void libNotFound() {
-	RTEX(std::format(MultiLang::userlib_not_found, libFile).c_str());
+	//RTEX(std::format(MultiLang::userlib_not_found, libFile).c_str());
 }
 
 static void procNotFound() {
-	RTEX(std::format(MultiLang::userlib_function_not_found, funcName).c_str());
+	//RTEX(std::format(MultiLang::userlib_function_not_found, funcName).c_str());
 }
 
 void _bbLoadLibs(char* p) {

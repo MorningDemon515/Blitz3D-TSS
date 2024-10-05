@@ -2,25 +2,22 @@
 #define BBAUDIO_H
 
 #include "bbsys.h"
-#include "../gxruntime/gxaudio.h"
 
-extern gxAudio* gx_audio;
-
-gxSound* bbLoadSound(BBStr* file);
-void		 bbFreeSound(gxSound* sound);
-gxChannel* bbPlaySound(gxSound* sound);
-void		 bbLoopSound(gxSound* sound);
-void		 bbSoundPitch(gxSound* sound, int pitch);
-void		 bbSoundVolume(gxSound* sound, float volume);
-void		 bbSoundPan(gxSound* sound, float pan);
-gxChannel* bbPlayMusic(BBStr* s, int mode);
-gxChannel* bbPlayCDTrack(int track, int mode);
-void		 bbStopChannel(gxChannel* channel);
-void		 bbPauseChannel(gxChannel* channel);
-void		 bbResumeChannel(gxChannel* channel);
-void		 bbChannelPitch(gxChannel* channel, int pitch);
-void		 bbChannelVolume(gxChannel* channel, float volume);
-void		 bbChannelPan(gxChannel* channel, float pan);
-int			 bbChannelPlaying(gxChannel* channel);
+int          bbLoadSound(BBStr* file);
+void		 bbFreeSound(int sound);
+int          bbPlaySound(int sound);
+void		 bbLoopSound(int sound);
+void		 bbSoundPitch(int sound, int pitch);
+void		 bbSoundVolume(int sound, float volume);
+void		 bbSoundPan(int sound, float pan);
+int          bbPlayMusic(BBStr* s, int mode);
+int          bbPlayCDTrack(int track, int mode);
+void		 bbStopChannel(int channel);
+void		 bbPauseChannel(int channel);
+void		 bbResumeChannel(int channel);
+void		 bbChannelPitch(int channel, int pitch);
+void		 bbChannelVolume(int channel, float volume);
+void		 bbChannelPan(int channel, float pan);
+int			 bbChannelPlaying(int channel);
 
 #endif

@@ -1,12 +1,15 @@
 #include "std.h"
 #include "bbsys.h"
-#include "../gxruntime/gxutf8.h"
+#include "bbutf8.h"
 #include "../bbruntime/bbgraphics.h"
 #include <time.h>
 #include "../MultiLang/MultiLang.h"
 
-#define CHKPOS(x, func) if(x < 0) ErrorLog(func, MultiLang::string_parameter_positive);
-#define CHKOFF(x, func) if(x <= 0) ErrorLog(func, MultiLang::string_parameter_greater);
+#include <sstream>
+#include <iomanip>
+
+#define CHKPOS(x, func) //if(x < 0) //ErrorLog(func, MultiLang::string_parameter_positive);
+#define CHKOFF(x, func) //if(x <= 0) //ErrorLog(func, MultiLang::string_parameter_greater);
 
 BBStr* bbString(BBStr* s, int n) {
 	BBStr* t = new BBStr();

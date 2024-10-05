@@ -32,13 +32,13 @@ static std::set<bbFile*> file_set;
 
 static inline void debugFile(bbFile* f, const char* function) {
 	if (!file_set.count(f)) {
-		ErrorLog(function, MultiLang::file_not_exist);
+		//ErrorLog(function, MultiLang::file_not_exist);
 	}
 }
 
 static inline void debugDir(gxDir* d, const char* function) {
 	if (!gx_filesys->verifyDir(d)) {
-		ErrorLog(function, MultiLang::directory_not_exist);
+		//ErrorLog(function, MultiLang::directory_not_exist);
 	}
 }
 
@@ -224,15 +224,15 @@ BBStr* bbAbsolutePath(BBStr* path) {
 }
 
 bool filesystem_create() {
-	if (gx_filesys = gx_runtime->openFileSystem(0)) {
-		return true;
-	}
+	//if (gx_filesys = gx_runtime->openFileSystem(0)) {
+		//return true;
+	//}
 	return false;
 }
 
 bool filesystem_destroy() {
-	while (file_set.size()) bbCloseFile(*file_set.begin());
-	gx_runtime->closeFileSystem(gx_filesys);
+	//while (file_set.size()) bbCloseFile(*file_set.begin());
+	//gx_runtime->closeFileSystem(gx_filesys);
 	return true;
 }
 

@@ -1,7 +1,7 @@
 #ifndef BBSTREAM_H
 #define BBSTREAM_H
 
-#include "bbsys.h"
+//#include "bbsys.h"
 
 class bbStream {
 public:

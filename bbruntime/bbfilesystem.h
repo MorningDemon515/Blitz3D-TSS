@@ -2,8 +2,6 @@
 #define BBFILESYSTEM_H
 
 #include "bbsys.h"
-#include "../gxruntime/gxfilesystem.h"
-
-extern gxFileSystem* gx_filesys;
+#include "gxfilesystem.h"
 
 #endif

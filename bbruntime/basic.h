@@ -2,6 +2,7 @@
 #define BASIC_H
 
 #include <string>
+#include <format>
 
 enum {
 	BBTYPE_END = 0,

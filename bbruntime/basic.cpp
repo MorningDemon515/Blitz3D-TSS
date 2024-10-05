@@ -180,7 +180,7 @@ void _bbVecFree(void* vec, BBVecType* type) {
 }
 
 void _bbVecBoundsEx(const char* function) {
-	ErrorLog(function, MultiLang::array_bounds_ex);
+	//ErrorLog(function, MultiLang::array_bounds_ex);
 }
 
 void _bbUndimArray(BBArray* array) {
@@ -216,7 +216,7 @@ void _bbDimArray(BBArray* array) {
 }
 
 void _bbArrayBoundsEx(const char* function) {
-	ErrorLog(function, MultiLang::array_index_out_of_bounds);
+	//ErrorLog(function, MultiLang::array_index_out_of_bounds);
 }
 
 static void unlinkObj(BBObj* obj) {
@@ -330,7 +330,7 @@ void* _bbFieldPtrAdd(void* var, int shft) {
 		}
 		return retVal;
 	}
-	ErrorLog("Field reference", MultiLang::null_obj_ex);
+	//ErrorLog("Field reference", MultiLang::null_obj_ex);
 	dummyPtr = 0;
 	return &dummyPtr;
 }
@@ -341,7 +341,7 @@ int _bbObjCompare(BBObj* o1, BBObj* o2) {
 
 BBObj* _bbObjNext(BBObj* obj) {
 	if (!obj) {
-		ErrorLog("ObjNext", MultiLang::null_obj_ex);
+		//ErrorLog("ObjNext", MultiLang::null_obj_ex);
 		return 0;
 	}
 	do {
@@ -353,7 +353,7 @@ BBObj* _bbObjNext(BBObj* obj) {
 
 BBObj* _bbObjPrev(BBObj* obj) {
 	if (!obj) {
-		ErrorLog("ObjPrev", MultiLang::null_obj_ex);
+		//ErrorLog("ObjPrev", MultiLang::null_obj_ex);
 		return 0;
 	}
 	do {
@@ -373,11 +373,11 @@ BBObj* _bbObjLast(BBObjType* type) {
 
 void _bbObjInsBefore(BBObj* o1, BBObj* o2) {
 	if (!o1) {
-		ErrorLog("ObjInsBefore (o1)", MultiLang::null_obj_ex);
+		//ErrorLog("ObjInsBefore (o1)", MultiLang::null_obj_ex);
 		return;
 	}
 	if (!o2) {
-		ErrorLog("ObjInsBefore (o2)", MultiLang::null_obj_ex);
+		//ErrorLog("ObjInsBefore (o2)", MultiLang::null_obj_ex);
 		return;
 	}
 	if (o1 == o2) return;
@@ -387,11 +387,11 @@ void _bbObjInsBefore(BBObj* o1, BBObj* o2) {
 
 void _bbObjInsAfter(BBObj* o1, BBObj* o2) {
 	if (!o1) {
-		ErrorLog("ObjInsAfter (o1)", MultiLang::null_obj_ex);
+		//ErrorLog("ObjInsAfter (o1)", MultiLang::null_obj_ex);
 		return;
 	}
 	if (!o2) {
-		ErrorLog("ObjInsAfter (o2)", MultiLang::null_obj_ex);
+		//ErrorLog("ObjInsAfter (o2)", MultiLang::null_obj_ex);
 		return;
 	}
 	if (o1 == o2) return;
@@ -479,7 +479,7 @@ BBObj* _bbObjFromHandle(int handle, BBObjType* type) {
 }
 
 void _bbNullObjEx(const char* function) {
-	ErrorLog(function, MultiLang::null_obj_ex);
+	//ErrorLog(function, MultiLang::null_obj_ex);
 }
 
 void _bbRestore(BBData* data) {
@@ -488,31 +488,31 @@ void _bbRestore(BBData* data) {
 
 int _bbReadInt() {
 	switch (dataPtr->fieldType) {
-	case BBTYPE_END:ErrorLog("ReadInt", MultiLang::out_of_data); return 0;
+	//case BBTYPE_END:ErrorLog("ReadInt", MultiLang::out_of_data); return 0;
 	case BBTYPE_INT:return dataPtr++->field.INT;
 	case BBTYPE_FLT:return dataPtr++->field.FLT;
 	case BBTYPE_CSTR:return atoi(dataPtr++->field.CSTR);
-	default:ErrorLog("ReadInt", MultiLang::bad_data_type); return 0;
+	default:return 0;
 	}
 }
 
 float _bbReadFloat() {
 	switch (dataPtr->fieldType) {
-	case BBTYPE_END:ErrorLog("ReadFloat", MultiLang::out_of_data); return 0;
+	//case BBTYPE_END:ErrorLog("ReadFloat", MultiLang::out_of_data); return 0;
 	case BBTYPE_INT:return dataPtr++->field.INT;
 	case BBTYPE_FLT:return dataPtr++->field.FLT;
 	case BBTYPE_CSTR:return atof(dataPtr++->field.CSTR);
-	default:ErrorLog("ReadFloat", MultiLang::bad_data_type); return 0;
+	default: return 0;
 	}
 }
 
 BBStr* _bbReadStr() {
 	switch (dataPtr->fieldType) {
-	case BBTYPE_END:ErrorLog("ReadStr", MultiLang::out_of_data); return 0;
+	//case BBTYPE_END:ErrorLog("ReadStr", MultiLang::out_of_data); return 0;
 	case BBTYPE_INT:return new BBStr(itoa(dataPtr++->field.INT));
 	case BBTYPE_FLT:return new BBStr(ftoa(dataPtr++->field.FLT));
 	case BBTYPE_CSTR:return new BBStr(dataPtr++->field.CSTR);
-	default:ErrorLog("ReadStr", MultiLang::bad_data_type); return 0;
+	default: return 0;
 	}
 }
 
@@ -525,9 +525,9 @@ float _bbFPow(float x, float y) {
 }
 
 void bbRuntimeStats() {
-	gx_runtime->debugLog(std::format(MultiLang::stats_strings, stringCnt).c_str());
-	gx_runtime->debugLog(std::format(MultiLang::stats_objects, objCnt).c_str());
-	gx_runtime->debugLog(std::format(MultiLang::stats_unreleased, unrelObjCnt).c_str());
+	//gx_runtime->debugLog(std::format(MultiLang::stats_strings, stringCnt).c_str());
+	//gx_runtime->debugLog(std::format(MultiLang::stats_objects, objCnt).c_str());
+	//gx_runtime->debugLog(std::format(MultiLang::stats_unreleased, unrelObjCnt).c_str());
 }
 
 bool basic_create() {
