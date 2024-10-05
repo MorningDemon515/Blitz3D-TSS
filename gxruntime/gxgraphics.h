@@ -33,6 +33,8 @@ public:
 
 	FT_Library ftLibrary;
 
+	bool running_on_wine;
+
 	gxGraphics(gxRuntime* runtime, IDirectDraw7* dirDraw, IDirectDrawSurface7* front, IDirectDrawSurface7* back, bool d3d);
 	~gxGraphics();
 
