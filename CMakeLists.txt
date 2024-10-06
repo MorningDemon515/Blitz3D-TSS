@@ -16,4 +16,8 @@ add_executable(Blitz3D WIN32
 
 target_compile_options(Blitz3D PRIVATE /Gz)
 
-
+add_custom_command(
+        TARGET Blitz3D  POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_BINARY_DIR}/$<CONFIGURATION> ${CMAKE_CURRENT_LIST_DIR}/_release
+)

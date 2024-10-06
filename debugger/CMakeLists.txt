@@ -33,4 +33,12 @@ target_compile_options(debugger PRIVATE /Gz)
 # Need this for MFC based DLLs.
 target_compile_definitions(debugger PRIVATE _USRDLL)
 
+function(copy_dll_to_install target dst)
+	set(SRC $<TARGET_FILE_DIR:${target}>/${target}.dll)
+	set(DST ${CMAKE_SOURCE_DIR}/_release/${dst}.dll)
+	add_custom_command(TARGET ${target} POST_BUILD VERBATIM
+			COMMAND ${CMAKE_COMMAND} -E echo "Copying ${target} output file \"${SRC}\" to \"${DST}\""
+			COMMAND ${CMAKE_COMMAND} -E copy ${SRC} ${DST})
+endfunction()
 
+copy_dll_to_install(debugger bin/debugger)

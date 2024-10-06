@@ -83,3 +83,13 @@ target_compile_definitions(blitzcc PRIVATE
     $<$<CONFIG:Release>:WIN32;NDEBUG;PRO;_CONSOLE;_HAS_STD_BYTE=0;_NO_DEBUG_HEAP=1>
 )
 
+function(copy_exe_to_install target dst)
+	set(SRC $<TARGET_FILE_DIR:${target}>/${target}.exe)
+	set(DST ${CMAKE_SOURCE_DIR}/_release/${dst}.exe)
+	add_custom_command(TARGET ${target} POST_BUILD VERBATIM
+			COMMAND ${CMAKE_COMMAND} -E echo "Copying ${target} output file \"${SRC}\" to \"${DST}\""
+			COMMAND ${CMAKE_COMMAND} -E copy ${SRC} ${DST})
+endfunction()
+
+copy_exe_to_install(blitzcc bin/blitzcc)
+
