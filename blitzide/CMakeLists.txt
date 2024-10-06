@@ -32,6 +32,7 @@ target_link_libraries(ide
 target_compile_options(ide PRIVATE /Gz)
 
 set_target_properties(ide PROPERTIES LINK_FLAGS "/ENTRY:WinMainCRTStartup")
+set_target_properties(ide PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 
 function(copy_exe_to_install target dst)
 	set(SRC $<TARGET_FILE_DIR:${target}>/${target}.exe)
