@@ -71,7 +71,7 @@ public:
 	afx_msg LRESULT onFind(WPARAM w, LPARAM l);
 
 private:
-	EditorListener* listener;
+    EditorListener* listener;
 
 	std::string name;
 	bool findOnly, found;
@@ -121,6 +121,7 @@ private:
 
 	static DWORD CALLBACK streamIn(DWORD cookie, LPBYTE buff, LONG cnt, LONG* done);
 	static DWORD CALLBACK streamOut(DWORD cookie, LPBYTE buff, LONG cnt, LONG* done);
+
 };
 
 #endif

@@ -50,7 +50,7 @@ void Tabber::OnSize(UINT type, int w, int h) {
 BOOL Tabber::OnEraseBkgnd(CDC* dc) {
 	CRect c; GetClientRect(&c);
 
-	HBRUSH hb = (HBRUSH)GetClassLongPtr(m_hWnd, GCLP_HBRBACKGROUND);
+	HBRUSH hb = (HBRUSH)GetClassLong(m_hWnd, GCL_HBRBACKGROUND);
 	CBrush br; br.Attach(hb);
 
 	if(curr < 0) dc->FillRect(&c, &br);
@@ -74,8 +74,7 @@ void Tabber::refresh() {
 	CRect r = getInnerRect();
 	CWnd* wnd = getTabWnd(curr);
 	wnd->MoveWindow(r.left, r.top, r.Width(), r.Height());
-	wnd->ShowWindow(SW_SHOW);
-	wnd->SetFocus();
+	wnd->ShowWindow(SW_SHOWNA);
 }
 
 Tabber::Tab* Tabber::getTab(int index)const {
@@ -125,7 +124,6 @@ void Tabber::setCurrent(int index) {
 	if(index != curr) {
 		CWnd* w = getTabWnd(curr);
 		curr = index;
-
 		refresh();
 		SetCurSel(curr);
 		if(w) w->ShowWindow(SW_HIDE);

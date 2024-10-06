@@ -252,7 +252,7 @@ bool Editor::setText(std::istream& in) {
     EDITSTREAM es;
     es.dwCookie = (DWORD)this;
     es.dwError = 0;
-    //es.pfnCallback = &streamIn;
+    es.pfnCallback = streamIn;
     is_line = "{\\rtf1{\\colortbl;" + rtfbgr(prefs.rgb_string) + rtfbgr(prefs.rgb_ident) +
         rtfbgr(prefs.rgb_keyword) + rtfbgr(prefs.rgb_comment) + rtfbgr(prefs.rgb_digit) +
         rtfbgr(prefs.rgb_default) + "}";
@@ -287,7 +287,7 @@ bool Editor::getText(std::ostream& out) {
     EDITSTREAM es;
     es.dwCookie = (DWORD)&out;
     es.dwError = 0;
-    //es.pfnCallback = streamOut;
+    es.pfnCallback = streamOut;
     editCtrl.StreamOut((CP_UTF8 << 16) | SF_USECODEPAGE | SF_TEXT, es);
     return es.dwError == 0;
 }

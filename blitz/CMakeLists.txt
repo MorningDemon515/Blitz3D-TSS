@@ -13,6 +13,7 @@ set(blitz_src
       ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
+#[[
 set(compiler_src
       ${CMAKE_CURRENT_SOURCE_DIR}/../compiler/assem_x86/asm_insts.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/../compiler/assem_x86/assem_x86.cpp
@@ -58,6 +59,54 @@ set(compiler_src
       ${CMAKE_CURRENT_SOURCE_DIR}/../compiler/type.h
       ${CMAKE_CURRENT_SOURCE_DIR}/../compiler/var.h
       ${CMAKE_CURRENT_SOURCE_DIR}/../compiler/varnode.h
+)
+]]
+
+set(compiler_src
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/assem_x86/asm_insts.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/assem_x86/assem_x86.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/assem_x86/operand.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/codegen_x86/codegen_x86.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/codegen_x86/tile.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/compiler.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/decl.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/declnode.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/environ.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/exprnode.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/node.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/parser.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/prognode.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/std.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/stmtnode.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/toker.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/type.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/varnode.cpp
+
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/assem_x86/assem_x86.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/assem_x86/insts.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/assem_x86/operand.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/codegen_x86/codegen_x86.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/codegen_x86/tile.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/assem.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/codegen.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/compiler.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/decl.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/declnode.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/environ.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/ex.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/exprnode.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/label.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/node.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/nodes.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/parser.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/prognode.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/std.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/stmtnode.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/stringmap.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/toker.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/type.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/var.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/../compiler_x64/varnode.h
 )
 
 set(blitz_stdutil_src
