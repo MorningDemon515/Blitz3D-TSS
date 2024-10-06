@@ -19,7 +19,7 @@ Please read [this document](EXTENDING.md).
 
 ### Steps
 
-# For Blitz3D
+#### For Blitz3D
 
 1. Open the repository's directory.
 2. mkdir build.
@@ -28,7 +28,7 @@ Please read [this document](EXTENDING.md).
 5. cmake --build . --config Release 
 6. Done! 
 
-# For CompilerGUI And Installer
+#### For CompilerGUI And Installer
 
 1. Open blitz3d.sln.
 2. Select Release and AnyCPU.
