@@ -9,20 +9,32 @@ Please read [this document](EXTENDING.md).
 
 ### Prepare
 
-- Visual Studio Community 2022
+- Visual Studio Community 2019 Or Later
   - Desktop development with C++
   - C++ MFC for latest v142 build tools (x86 & x64)
   - C++ ATL for latest v142 build tools (x86 & x64)
   - ASP.NET and web development
 
+- CMake 3.16 Or Later
+
 ### Steps
 
-1. Open `blitz3d.sln` in Visual Studio 2022.
-2. Select Release or Debug config and rebuild the entire solution.
-3. All done! You can find output files in the `_release` and `_release/bin` dirs. Feel free to delete `.pdb` and `.ilk` files here.
+# For Blitz3D
 
-- **Note:** Blitz3D TSS uses the dynamic version of the fmod audio lib. 
+1. Open the repository's directory.
+2. mkdir build.
+3. cd build.
+4. cmake -G "Visual Studio 16 2019" -A Win32 ..
+5. cmake --build . --config Release 
+6. Done! 
+
+# For CompilerGUI And Installer
+
+1. Open blitz3d.sln.
+2. Select Release and AnyCPU.
+3. Press F7.
+4. Done!
+
+- **Note:** 
   
-  When redistributing programs built with Blitz3D TSS, you will need to also include the `fmod.dll` file found in the `bin` directory with your programs. 
-  
-  This should be placed in the same directory as your program's executable.
+  Nothing
